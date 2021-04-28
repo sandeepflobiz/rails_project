@@ -27,6 +27,7 @@ class UsersController < ApplicationController
       user = User.new
       user.name = params[:name]
       user.email = params[:email]
+      user.mobile_number = params[:mobile]
       user.save
 
       msg = Response.customSuccessResponse("new default user has been created",user)
@@ -42,6 +43,7 @@ class UsersController < ApplicationController
       user = User.find(params[:id])
       user.name = params[:name]
       user.email = params[:email]
+      user.mobile_number = params[:mobile]
       user.save
 
       msg = Response.customSuccessResponse("user details has been updated",user)
