@@ -8,16 +8,16 @@ class UsersController < ApplicationController
   end
 
   def getAll
-    @users = User.all
+    users = User.all
     puts "all users object has been fetched"
-    msg = customResponse("all users data has been fetched",@users)
+    msg = customResponse("all users data has been fetched",users)
     render :json=>msg
   end
 
   def getUser
     begin
-      @user = User.find(params[:id])
-      msg = customResponse("user data has been fetched",@user)
+      user = User.find(params[:id])
+      msg = customResponse("user data has been fetched",user)
       render :json=>msg
     rescue =>error
       msg = customResponse(error,nil)
@@ -27,12 +27,12 @@ class UsersController < ApplicationController
 
   def createUser
     begin
-      @user = User.new
-      @user.name = params[:name]
-      @user.email = params[:email]
-      @user.save
+      user = User.new
+      user.name = params[:name]
+      user.email = params[:email]
+      user.save
 
-      msg = customResponse("new default user has been created",@user)
+      msg = customResponse("new default user has been created",user)
       render :json=>msg
     rescue =>error
       msg = customResponse("Something went wrong",error)
@@ -42,12 +42,12 @@ class UsersController < ApplicationController
 
   def updateUser
     begin
-      @user = User.find(params[:id])
-      @user.name = params[:name]
-      @user.email = params[:email]
-      @user.save
+      user = User.find(params[:id])
+      user.name = params[:name]
+      user.email = params[:email]
+      user.save
 
-      msg = customResponse("user details has been updated",@user)
+      msg = customResponse("user details has been updated",user)
       render :json=>msg
     rescue =>error
     end
@@ -55,9 +55,9 @@ class UsersController < ApplicationController
 
   def deleteUser
     begin
-      @user = User.find(params[:id])
-      @user.delete
-      msg = customResponse("user details has been deleted",@user)
+      user = User.find(params[:id])
+      user.delete
+      msg = customResponse("user details has been deleted",user)
       render :json=>msg
       rescue =>error
     end
