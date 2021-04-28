@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   get 'home/about'
+  get 'users/getAll'
+  get 'users/getUser'
+  post 'users/createUser'
+  put 'users/updateUser'
+  delete 'users/deleteUser'
   root 'home#index'
   # get 'home/about'
   resources :microposts
