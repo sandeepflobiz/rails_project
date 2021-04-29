@@ -27,4 +27,6 @@ class FriendController < ApplicationController
       render :json=>msg
     end
   end
+
+
 end
