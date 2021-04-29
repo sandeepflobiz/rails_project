@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   post 'users/createUser'
   put 'users/updateUser'
   delete 'users/deleteUser'
+  get 'friend/getAllFriends'
+  post 'friend/createFriend'
+  post 'microposts/createPost'
   root 'home#index'
   # get 'home/about'
   resources :microposts

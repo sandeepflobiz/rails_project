@@ -1,6 +1,6 @@
 require_relative "../utils/response.rb"
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  # before_action :set_user, only: %i[ show edit update destroy ]
   skip_before_action :verify_authenticity_token
   include Response
 
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   def getUser
     begin
       user = User.find(params[:id])
-      msg = Response.customSuccessResponse("user data has been fetched",user)
+      msg = Response.customSuccessResponse("user current data",user)
       render :json=>msg
     rescue =>error
       msg = Response.customErrorResponse(error,nil)
@@ -29,9 +29,7 @@ class UsersController < ApplicationController
       user.email = params[:email]
       user.mobile_number = params[:mobile]
       user.save
-
-      msg = Response.customSuccessResponse("new default user has been created",user)
-      render :json=>msg
+      redirect_to :action=>'getUser',:id=>user
     rescue =>error
       msg = Response.customErrorResponse("Something went wrong",error)
       render :json=>msg
@@ -46,8 +44,7 @@ class UsersController < ApplicationController
       user.mobile_number = params[:mobile]
       user.save
 
-      msg = Response.customSuccessResponse("user details has been updated",user)
-      render :json=>msg
+      redirect_to :action=>'getUser', :id=>user
     rescue =>error
       msg = Response.customErrorResponse("Something went wrong",error)
       render :json=>msg

@@ -1,9 +1,16 @@
+require_relative "../utils/response.rb"
 class MicropostsController < ApplicationController
   before_action :set_micropost, only: %i[ show edit update destroy ]
-
+  skip_before_action :verify_authenticity_token
+  include Response
   # GET /microposts or /microposts.json
   def index
+    puts "here"
     @microposts = Micropost.all
+    puts "in"
+    # puts @micropost
+    # msg = Response.customSuccessResponse("all users data has been fetched",@micropost)
+    # render :json=>msg
   end
 
   # GET /microposts/1 or /microposts/1.json
@@ -19,6 +26,15 @@ class MicropostsController < ApplicationController
   def edit
   end
 
+  def createPost
+    puts "reached"
+    @micropost = Micropost.new(micropost_params)
+    # @micropost.content = params[:content]
+    # @micropost.user_id = params[:user_id]
+    @micropost.save
+    msg = Response.customSuccessResponse("new post is created",@micropost)
+    render :json=>msg
+  end
   # POST /microposts or /microposts.json
   def create
     @micropost = Micropost.new(micropost_params)
